@@ -29,9 +29,16 @@ defmodule GithublicencerWeb.Commiter do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [
-				:email, :name, :github_user_id,
-				:github_repo_id, :note, :manual_overide, :sign_at,
-				:parent_commiter_id, :signed_name, :signed_ip_address])
+        :email,
+        :name,
+        :github_user_id,
+        :github_repo_id,
+        :note,
+        :manual_overide,
+        :sign_at,
+        :parent_commiter_id,
+        :signed_name,
+        :signed_ip_address])
     |> validate_required([:github_user_id])
   end
 end

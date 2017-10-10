@@ -109,7 +109,7 @@
 		                      </div>
 
 		                      <div class="sp-info">
-														<%= current_user(@conn).github_id %>
+														<%= current_user(@conn).provider_username %>
 
 
 		                          <i class="zmdi zmdi-caret-down"></i>

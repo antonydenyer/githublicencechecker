@@ -1,7 +1,7 @@
 defmodule GithublicencerWeb.AuthController do
 
 	use GithublicencerWeb, :controller
-
+	require IEx
 	plug Ueberauth
 	alias Ueberauth.Strategy.Helpers
 
@@ -41,11 +41,19 @@ defmodule GithublicencerWeb.AuthController do
 	end
 
 	defp find_or_create(auth) do
-		user = Repo.get_by(User, github_id: auth.uid) || %User{}
+
+    user = User
+			|> where(provider: ^"#{auth.provider}")
+			|> where(provider_id: ^auth.extra.raw_info.user["id"])
+			|> Repo.one
+			|| %User{}
 
 		params =  %{
-			github_id: auth.uid,
+			provider: "#{auth.provider}",
+			provider_id: auth.extra.raw_info.user["id"],
+			provider_username: auth.uid,
 			name: auth.info.name,
+			email: auth.info.email,
 			avatar_url: auth.info.urls.avatar_url,
 			access_token: auth.credentials.token
 		}
@@ -56,7 +64,6 @@ defmodule GithublicencerWeb.AuthController do
 			{:error, changeset} ->
 				{:error, changeset}
 		end
-
 	end
 
 
