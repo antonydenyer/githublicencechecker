@@ -1,4 +1,4 @@
-defmodule GithublicencerWeb.GithubRepoView do
+defmodule GithublicencerWeb.RepositoryView do
   use GithublicencerWeb, :view
 
 	use Phoenix.HTML
@@ -6,11 +6,11 @@ defmodule GithublicencerWeb.GithubRepoView do
 	require IEx
 
   def render("index.json", %{github_repos: github_repos}) do
-    %{data: render_many(github_repos, GithublicencerWeb.GithubRepoView, "github_repo.json")}
+    %{data: render_many(github_repos, GithublicencerWeb.RepositoryView, "github_repo.json")}
   end
 
   def render("show.json", %{github_repo: github_repo}) do
-    %{data: render_one(github_repo, GithublicencerWeb.GithubRepoView, "github_repo.json")}
+    %{data: render_one(github_repo, GithublicencerWeb.RepositoryView, "github_repo.json")}
   end
 
 	def render("github_repo.json", %{github_repo: github_repo}) do
@@ -18,7 +18,7 @@ defmodule GithublicencerWeb.GithubRepoView do
 			id: github_repo.id,
 			name: github_repo.name,
 			owner: github_repo.owner,
-			user_agreements: render_many(github_repo.user_agreements, GithublicencerWeb.GithubRepoView, "user_agreements.json", as: :user_agreements)
+			user_agreements: render_many(github_repo.user_agreements, GithublicencerWeb.RepositoryView, "user_agreements.json", as: :user_agreements)
 		}
 	end
 

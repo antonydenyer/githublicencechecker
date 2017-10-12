@@ -128,7 +128,7 @@
                 </div>
 
                 <ul class="main-menu">
-                    <li><a href="<%= github_repo_path(@conn, :index) %>"><i class="zmdi zmdi-format-underlined"></i> Repos</a></li>
+                    <li><a href="<%= repository_path(@conn, :index) %>"><i class="zmdi zmdi-format-underlined"></i> Repos</a></li>
                     <li><a href="<%= pullrequest_path(@conn, :index) %>"><i class="zmdi zmdi-view-list"></i> Pull Requests</a></li>
 
                 </ul>

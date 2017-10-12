@@ -4,7 +4,7 @@ defmodule GithublicencerWeb.CommiterHandler do
 	alias GithublicencerWeb.Commiter
 	alias GithublicencerWeb.Repo
 
-	def upsert_committers(commits, github_repo) do
+	def upsert_committers(commits, repository) do
 
 		committers = commits
 			|> Enum.filter(
@@ -24,7 +24,7 @@ defmodule GithublicencerWeb.CommiterHandler do
 			|> Enum.uniq
 
 		committers = Enum.map committers, fn(commiter)->
-			Map.put(commiter, :github_repo_id, github_repo.id)
+			Map.put(commiter, :repository_id, repository.id)
 		end
 
 		Enum.each committers, &upsert_commiter/1

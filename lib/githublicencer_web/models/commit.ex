@@ -7,7 +7,7 @@ defmodule GithublicencerWeb.Commit do
     timestamps()
 
 		belongs_to :commiter, GithublicencerWeb.Commiter
-		belongs_to :github_repo, GithublicencerWeb.GithubRepo
+		belongs_to :repository, GithublicencerWeb.Repository
   end
 
   @doc """
@@ -15,7 +15,7 @@ defmodule GithublicencerWeb.Commit do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:sha, :commiter_id, :github_repo_id])
+    |> cast(params, [:sha, :commiter_id, :repository_id])
 	  |> validate_required([:sha, :commiter_id])
 		|> unique_constraint(:sha)
   end

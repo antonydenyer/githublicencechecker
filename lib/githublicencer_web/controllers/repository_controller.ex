@@ -1,7 +1,7 @@
-defmodule GithublicencerWeb.GithubRepoController do
+defmodule GithublicencerWeb.RepositoryController do
 	use GithublicencerWeb, :controller
 
-	alias GithublicencerWeb.GithubRepo
+	alias GithublicencerWeb.Repository
 
 	def index(conn, _params) do
 		repos = (get_session(conn, :current_user)
@@ -19,16 +19,13 @@ defmodule GithublicencerWeb.GithubRepoController do
 
 	def show(conn, %{"id" => id}) do
 
-		repo = Repo.get!(GithubRepo, id)
-					|> Repo.preload(commits: :commiter)
+		repo = Repo.get!(Repository, id)
+					|> Repo.preload(:commiters)
 
-		commiters = repo.commits
-				|> select_populated_commiter
-				|> remove_nil_commiters
+		commiters = repo.commiters
 				|> set_valid_agreement
-				|> Enum.uniq
 
-		render(conn, "show.html", github_repo: repo, commiters: commiters)
+		render(conn, "show.html", repository: repo, commiters: commiters)
 	end
 
 	defp select_populated_commiter(commits) do

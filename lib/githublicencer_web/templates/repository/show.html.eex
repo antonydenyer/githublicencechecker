@@ -1,4 +1,4 @@
-<%= render GithublicencerWeb.BreadcrumbView, "breadcrumbs.html", %{github_repo: @github_repo, conn: @conn} %>
+<%= render GithublicencerWeb.BreadcrumbView, "breadcrumbs.html", %{repository: @repository, conn: @conn} %>
 
 <section id="content">
 				<div class="container">
@@ -30,8 +30,8 @@
 														 <td><%= commiter.name %></td>
 														 <td><%= commiter.email %></td>
 														 <td><%= commiter.is_valid %></td>
-														 <td><a href=<%= github_repo_commiter_path(@conn, :show, @github_repo, commiter) %>> <%= commiter.commit_count %></a></td>
-														 <td> <a href=<%= github_repo_commiter_path(@conn, :edit, @github_repo, commiter) %>><button class="btn btn-primary waves-effect">Edit</button> </a></td>
+														 <td><a href=<%= repository_commiter_path(@conn, :show, @repository, commiter) %>> 0</a></td>
+														 <td> <a href=<%= repository_commiter_path(@conn, :edit, @repository, commiter) %>><button class="btn btn-primary waves-effect">Edit</button> </a></td>
 													 </tr>
 												 <% end %>
 

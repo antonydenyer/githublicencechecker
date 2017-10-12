@@ -12,17 +12,17 @@ defmodule GithublicencerWeb.CommiterController do
   end
 
 
-  def show(conn, %{"github_repo_id" => github_repo_id, "id" => id}) do
+  def show(conn, %{"repository_id" => repository_id, "id" => id}) do
     commiter =
       Repo.get!(Commiter, id)
       |> Repo.preload(:commits)
     render conn, "show.html", commiter: commiter
   end
 
-	def sign(conn, %{"github_repo_id" => github_repo_id, "commiter_id" => commiter_id}) do
+	def sign(conn, %{"repository_id" => repository_id, "commiter_id" => commiter_id}) do
 		commiter =
       Repo.get!(Commiter, commiter_id)
-      |> Repo.preload(:github_repo)
+      |> Repo.preload(:repository)
     changeset = Commiter.changeset(commiter)
     render conn, "sign.html", commiter: commiter, changeset: changeset
   end
@@ -30,7 +30,7 @@ defmodule GithublicencerWeb.CommiterController do
   def edit(conn, %{"id" => id}) do
     commiter =
       Repo.get!(Commiter, id)
-      |> Repo.preload(:github_repo)
+      |> Repo.preload(:repository)
       |> populate_parent_commiter
     changeset = Commiter.changeset(commiter)
     render conn, "edit.html", commiter: commiter, changeset: changeset
@@ -40,7 +40,7 @@ defmodule GithublicencerWeb.CommiterController do
   def update(conn, %{"id" => id, "commiter" => commiter_params}) do
     commiter =
       Repo.get!(Commiter, id)
-      |> Repo.preload(:github_repo)
+      |> Repo.preload(:repository)
 		IO.puts("-------------")
 		IO.inspect(commiter_params)
 		commiter_params = populate_signed(conn, commiter_params)
@@ -51,7 +51,7 @@ defmodule GithublicencerWeb.CommiterController do
       {:ok, commiter} ->
         conn
         |> put_flash(:info, "Commiter updated successfully.")
-        |> redirect(to: github_repo_path(conn, :show, commiter.github_repo))
+        |> redirect(to: repository_path(conn, :show, commiter.repository))
 
       {:error, changeset} ->
         render conn, "edit.html", commiter: commiter, changeset: changeset
@@ -67,13 +67,13 @@ defmodule GithublicencerWeb.CommiterController do
 	defp populate_signed(conn, commiter_params) do
 	end
 
-  def index(conn, %{ "github_repo_id" => github_repo_id, "exclude_self" => exclude_self}) do
-    commiters = Repo.all(Commiter, github_repo_id: github_repo_id)
+  def index(conn, %{ "repository_id" => repository_id, "exclude_self" => exclude_self}) do
+    commiters = Repo.all(Commiter, repository_id: repository_id)
     render conn, "index.json", commiters: commiters
   end
 
-  def index(conn, %{"github_repo_id" => github_repo_id}) do
-    commiters = Repo.all(Commiter, github_repo_id: github_repo_id)
+  def index(conn, %{"repository_id" => repository_id}) do
+    commiters = Repo.all(Commiter, repository_id: repository_id)
     render conn, "index.json", commiters: commiters
   end
 end

@@ -18,8 +18,7 @@ defmodule GithublicencerWeb.Commiter do
 
     timestamps()
 
-		belongs_to :github_repo, GithublicencerWeb.GithubRepo
-		has_many :commits, GithublicencerWeb.Commit
+		belongs_to :repository, GithublicencerWeb.Repository
 
   end
 
@@ -32,7 +31,7 @@ defmodule GithublicencerWeb.Commiter do
         :email,
         :name,
         :github_user_id,
-        :github_repo_id,
+        :repository_id,
         :note,
         :manual_overide,
         :sign_at,

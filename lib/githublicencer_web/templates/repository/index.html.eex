@@ -24,7 +24,7 @@
 												</thead>
 												<tbody>
 													<%= for repo <- @repositories do %>
-													 	<tr class='clickable-row' data-href=<%= github_repo_path(@conn, :show, repo) %>>
+													 	<tr class='clickable-row' data-href=<%= repository_path(@conn, :show, repo) %>>
 															 <td><%= link_to(repo)	%></td>
 															 <td>CLA 123 </td>
 															 <td><%= repo.commiters |> length %></td>

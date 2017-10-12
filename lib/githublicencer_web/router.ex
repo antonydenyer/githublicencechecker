@@ -31,7 +31,7 @@ defmodule GithublicencerWeb.Router do
     resources "/github/link", GithubLinkController
 
 		resources "/pullrequests", PullrequestController
-		resources "/github_repo", GithubRepoController do
+		resources "/repositories", RepositoryController do
 			resources "/commiters", CommiterController do
 				get "/sign", CommiterController, :sign
 			end

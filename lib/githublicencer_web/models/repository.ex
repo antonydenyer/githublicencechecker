@@ -1,8 +1,8 @@
-defmodule GithublicencerWeb.GithubRepo do
+defmodule GithublicencerWeb.Repository do
 
   use GithublicencerWeb, :model
 
-  schema "github_repos" do
+  schema "repositories" do
     field :repository_id, :integer
     field :fork, :boolean
     field :name, :string
@@ -14,7 +14,6 @@ defmodule GithublicencerWeb.GithubRepo do
     timestamps()
 
 		belongs_to :user, GithublicencerWeb.User
-		has_many :commits, GithublicencerWeb.Commit
 		has_many :commiters, GithublicencerWeb.Commiter
 
   end
